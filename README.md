@@ -4,6 +4,12 @@
 
 This is a simple web application for encrypting and decrypting images using the `imcrypt` command-line utility.
 
+##Demo
+
+![WelcomePage](./ss1.png)
+![Encryption](./ss2.png)
+![Decryption](./ss3.png)
+
 ## Technologies Used
 
 - Node.js
