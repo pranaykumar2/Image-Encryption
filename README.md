@@ -48,7 +48,7 @@ This is a simple web application for encrypting and decrypting images using the 
 1. Run the server:
 
    ```bash
-   npm start
+   node index.js
    ```
 
 2. Open your web browser and navigate to `http://localhost:3000`.
