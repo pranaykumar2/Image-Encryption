@@ -6,9 +6,9 @@ This is a simple web application for encrypting and decrypting images using the 
 
 ## Demo
 
-![WelcomePage](./ss1.png)
-![Encryption](./ss2.png)
-![Decryption](./ss3.png)
+![WelcomePage](./images/ss1.png)
+![Encryption](./images/ss2.png)
+![Decryption](./images/ss3.png)
 
 ## Technologies Used
 
