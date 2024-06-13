@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decryption</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@300;500&family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Poppins', 'Roboto', 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0A2647, #144272, #205295, #2C74B3);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            animation: gradient 25s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradient {
+            0%, 100% {
+                background: linear-gradient(135deg, #040D12, #183D3D, #5C8374, #93B1A6);
+            }
+            20% {
+                background: linear-gradient(135deg, #252525, #FF0000, #AF0404, #414141);
+            }
+            40% {
+                background: linear-gradient(135deg, #0A2647, #144272, #205295, #2C74B3);
+            }
+            60% {
+                background: linear-gradient(135deg, #FFFAE6, #FF9F66, #FF5F00, #002379);
+            }
+            80% {
+                background: linear-gradient(135deg, #FFE6E6, #E1AFD1, #AD88C6, #7469B6);
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            padding: 50px;
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            animation: fadeIn 0.7s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 30px;
+            letter-spacing: 1.2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: left;
+            color: #fff;
+        }
+
+        input[type="file"],
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s, background-color 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="file"]::file-selector-button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #6D5BBA;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #5A48A6;
+            transform: scale(1.05);
+        }
+
+        input[type="file"]:hover,
+        button[type="submit"]:hover {
+            border-color: #ff4081;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #ff4081, #ff5f00);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #e61a5f, #d45300);
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #decrypted-text {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-align: left;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #final-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            font-size: 16px;
+            font-weight: 600;
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #countdown-timer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            display: none;
+            z-index: 1001;
+        }
+
+        #countdown-timer p {
+            margin-bottom: 20px;
+            color: black;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Decrypt Image</h1>
+        <form id="decrypt-form" enctype="multipart/form-data">
+            <label for="encrypted-photo">Upload Encrypted Image:</label>
+            <input type="file" id="encrypted-photo" name="encrypted-photo" accept=".jpg" required>
+
+            <label for="key">Upload Key File:</label>
+            <input type="file" id="key" name="key" accept=".txt" required>
+
+            <button type="submit">Decrypt</button>
+        </form>
+    </div>
+
+    <div id="countdown-timer">
+        <p>Decrypting... Please wait <span id="timer">20</span> seconds.</p>
+    </div>
+
+    <div id="final-message">Check your projects folder/gmail.</div>
+
+    <script>
+    const form = document.getElementById('decrypt-form');
+    const countdownTimer = document.getElementById('countdown-timer');
+    const timerElement = document.getElementById('timer');
+    const finalMessage = document.getElementById('final-message');
+
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        countdownTimer.style.display = 'block';
+        let timeLeft = 20;
+        const countdownInterval = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                countdownTimer.style.display = 'none';
+                finalMessage.style.display = 'block';
+                setTimeout(() => {
+                    finalMessage.style.display = 'none';
+                }, 5000);
+            }
+        }, 1000);
+
+        try {
+            const response = await fetch('/decrypt', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'decrypted_image.jpg';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } else {
+                const errorText = await response.text();
+                document.getElementById('decrypted-text').innerText = errorText;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('decrypted-text').innerText = 'Error: Decryption failed. Please try again.';
+        }
+    });
+</script>
+</body>
+</html>
