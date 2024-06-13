@@ -21,7 +21,7 @@ This is a simple web application for encrypting and decrypting images using the 
 ### Prerequisites
 
 - Node.js installed on your machine.
-- `imcrypt` command-line utility installed. [Installation guide](https://example.com/imcrypt-installation)
+- `imcrypt` command-line utility installed. [Installation guide]([https://example.com/imcrypt-installation](https://www.npmjs.com/package/imcrypt))
 
 ### Installation
 
@@ -75,4 +75,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 --- 
 
-This is a simple tool developed for encrypting and decrypting images using the `imcrypt` utility. For assistance or queries, feel free to open an issue. Contributions are appreciated!
